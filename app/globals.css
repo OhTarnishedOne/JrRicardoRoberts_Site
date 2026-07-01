@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #1a1917;
+  --paper: #f7f4ef;
+  --paper-dark: #ece8e0;
+  --soft: rgba(26, 25, 23, 0.45);
+  --faint: rgba(26, 25, 23, 0.18);
+  --accent: #2d6a4f;
+  --accent-light: #e8f4ef;
+  --accent-green: #1a5c3a;
+  --warm: #c8622a;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-sans: 'Inter', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Display font utility */
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Dot grid background */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(26, 25, 23, 0.15) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.dot-grid-fade::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 65% 55% at 68% 38%,
+    transparent 30%,
+    rgba(247, 244, 239, 0.97) 100%
+  );
+  pointer-events: none;
+}
+
+/* Word reveal animation */
+@keyframes wordUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.word-reveal {
+  display: inline-block;
+  transform: translateY(100%);
+  animation: wordUp 0.6s ease forwards;
+}
+
+.word-reveal-1 { animation-delay: 0.35s; }
+.word-reveal-2 { animation-delay: 0.48s; }
+.word-reveal-3 { animation-delay: 0.58s; }
+
+/* Slide in */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in-1 { opacity: 0; animation: slideIn 0.6s ease forwards 0.2s; }
+.slide-in-2 { opacity: 0; animation: slideIn 0.7s ease forwards 0.35s; }
+.slide-in-3 { opacity: 0; animation: slideIn 0.6s ease forwards 0.75s; }
+.slide-in-4 { opacity: 0; animation: slideIn 0.6s ease forwards 0.9s; }
+
+/* Pulse dot */
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.8); }
+}
+
+.pulse-dot {
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+/* Ticker scroll */
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.ticker-scroll {
+  animation: tickerScroll 28s linear infinite;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.22s; }
+
+/* Hairline border color */
+.border-hairline { border-color: var(--faint); }
+
+/* Cursor glow */
+.cursor-glow {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(45, 106, 79, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: left 0.4s ease, top 0.4s ease;
+}
+
+/* Nav hover effects */
+.nav-name {
+  transition: color 0.2s ease, font-weight 0.15s ease;
+}
+.nav-name:hover {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.nav-link {
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.2s ease;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 1px;
+  background: var(--ink);
+  transition: width 0.25s ease;
+}
+.nav-link:hover { color: var(--ink); }
+.nav-link:hover::after { width: 100%; }
+
+/* Range slider */
+input[type='range'].cal-slider {
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  background: var(--faint);
+}
+input[type='range'].cal-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--ink);
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+input[type='range'].cal-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+}
+
+/* Timeline hover */
+.tl-item {
+  transition: padding-left 0.2s ease;
+}
+.tl-item:hover {
+  padding-left: 6px;
+}
+
+/* Persona card hover */
+.persona-card {
+  transition: background 0.2s ease;
+}
+.persona-card:hover {
+  background-color: #e5e1d9;
+}
