@@ -33,7 +33,7 @@ export default function Story() {
         {/* Left */}
         <div
           ref={leftRef}
-          className="reveal"
+          
           style={{
             padding: '72px 40px',
             borderRight: '1px solid rgba(26,25,23,0.18)',
@@ -80,7 +80,7 @@ export default function Story() {
         {/* Right */}
         <div
           ref={rightRef}
-          className="reveal reveal-delay-1"
+          
           style={{ padding: '72px 40px', background: '#ece8e0' }}
         >
           <p style={{ fontSize: '10px', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.14em', color: 'rgba(26,25,23,0.3)', marginBottom: '24px' }}>

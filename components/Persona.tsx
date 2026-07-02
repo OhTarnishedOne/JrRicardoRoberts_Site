@@ -29,7 +29,7 @@ export default function Persona() {
   return (
     <section
       ref={ref}
-      className="reveal"
+      
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',

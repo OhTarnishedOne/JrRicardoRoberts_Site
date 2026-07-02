@@ -10,142 +10,176 @@ export default function Hero() {
     const hero = heroRef.current
     const glow = glowRef.current
     if (!hero || !glow) return
-
     const handleMouseMove = (e: MouseEvent) => {
       const rect = hero.getBoundingClientRect()
       glow.style.left = `${e.clientX - rect.left}px`
       glow.style.top  = `${e.clientY - rect.top}px`
     }
-
     hero.addEventListener('mousemove', handleMouseMove)
     return () => hero.removeEventListener('mousemove', handleMouseMove)
   }, [])
-
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-  }
 
   return (
     <section
       id="hero"
       ref={heroRef}
-      className="relative flex flex-col justify-center overflow-hidden px-10 pt-40 pb-20"
-      style={{ minHeight: '88vh' }}
+      style={{
+        minHeight: '88vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: '140px 80px 80px',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
     >
-      {/* Dot grid background */}
-      <div className="absolute inset-0 dot-grid dot-grid-fade opacity-0 animate-[fadeIn_1.2s_ease_forwards_0.3s]" />
+      {/* Dot grid */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        backgroundImage: 'radial-gradient(circle, rgba(26,25,23,0.15) 1px, transparent 1px)',
+        backgroundSize: '28px 28px',
+        zIndex: 0,
+      }}>
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'radial-gradient(ellipse 65% 55% at 68% 38%, transparent 30%, rgba(247,244,239,0.97) 100%)',
+        }} />
+      </div>
 
       {/* Cursor glow */}
-      <div ref={glowRef} className="cursor-glow" style={{ left: '60%', top: '40%' }} />
+      <div ref={glowRef} style={{
+        position: 'absolute',
+        width: '380px', height: '380px',
+        borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(45,106,79,0.18) 0%, transparent 70%)',
+        pointerEvents: 'none',
+        transform: 'translate(-50%, -50%)',
+        left: '60%', top: '40%',
+        transition: 'left 0.4s ease, top 0.4s ease',
+        zIndex: 1,
+      }} />
 
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto w-full">
-        <div className="max-w-[680px]">
+      <div style={{ position: 'relative', zIndex: 2, maxWidth: '1152px', margin: '0 auto', width: '100%' }}>
+        <div style={{ maxWidth: '680px' }}>
 
-          {/* Eyebrow tag */}
-          <div className="slide-in-1 flex items-center gap-2 mb-7">
-            <span
-              className="pulse-dot inline-block w-[6px] h-[6px] rounded-full"
-              style={{ background: 'var(--accent)' }}
-            />
-            <span
-              className="text-[11px] font-medium uppercase tracking-[0.1em]"
-              style={{ color: 'var(--soft)' }}
-            >
-              Founder · Decision intelligence · Brooklyn
-            </span>
+          {/* Eyebrow */}
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '8px',
+            fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase',
+            color: 'rgba(26,25,23,0.45)', fontWeight: 500, marginBottom: '28px',
+            opacity: 0, animation: 'slideIn 0.6s ease forwards 0.2s',
+          }}>
+            <span style={{
+              display: 'inline-block', width: '6px', height: '6px',
+              borderRadius: '50%', background: '#2d6a4f',
+              animation: 'pulseDot 2s ease-in-out infinite',
+            }} />
+            Founder · Decision intelligence · Brooklyn
           </div>
 
           {/* Headline */}
-          <h1
-            className="font-display font-normal mb-0"
-            style={{
-              fontSize: 'clamp(42px, 7vw, 72px)',
-              lineHeight: 1.05,
-              opacity: 0,
-              animation: 'slideIn 0.7s ease forwards 0.35s',
-            }}
-          >
-            <span className="block overflow-hidden">
-              <span className="word-reveal word-reveal-1">Are you a good</span>
+          <h1 style={{
+            fontFamily: '"DM Serif Display", Georgia, serif',
+            fontSize: 'clamp(42px, 6vw, 68px)',
+            lineHeight: 1.05, fontWeight: 400,
+            margin: '0 0 28px 0',
+            opacity: 0, animation: 'slideIn 0.7s ease forwards 0.35s',
+          }}>
+            <span style={{ display: 'block', overflow: 'hidden' }}>
+              <span style={{ display: 'inline-block', animation: 'wordUp 0.6s ease forwards 0.35s', transform: 'translateY(100%)' }}>
+                Are you a good
+              </span>
             </span>
-            <span className="block overflow-hidden">
-              <span className="word-reveal word-reveal-2" style={{ color: 'var(--soft)', fontStyle: 'italic' }}>
+            <span style={{ display: 'block', overflow: 'hidden' }}>
+              <span style={{ display: 'inline-block', animation: 'wordUp 0.6s ease forwards 0.48s', transform: 'translateY(100%)', fontStyle: 'italic', color: 'rgba(26,25,23,0.45)' }}>
                 investing
               </span>
             </span>
-            <span className="block overflow-hidden">
-              <span
-                className="word-reveal word-reveal-3"
-                style={{ color: 'var(--accent)' }}
-              >
+            <span style={{ display: 'block', overflow: 'hidden' }}>
+              <span style={{ display: 'inline-block', animation: 'wordUp 0.6s ease forwards 0.58s', transform: 'translateY(100%)', color: '#2d6a4f' }}>
                 decision-maker?
               </span>
             </span>
           </h1>
 
           {/* Subhead */}
-          <p
-            className="slide-in-3 text-[17px] leading-[1.75] max-w-[520px] mt-7 font-light"
-            style={{ color: 'var(--soft)' }}
-          >
+          <p style={{
+            fontSize: '17px', lineHeight: 1.75,
+            color: 'rgba(26,25,23,0.55)', fontWeight: 300,
+            maxWidth: '520px', margin: '0 0 36px 0',
+            opacity: 0, animation: 'slideIn 0.6s ease forwards 0.75s',
+          }}>
             Most investors consume endless content but never actually know if their
             thinking is sound. LCS Engine is the first decision intelligence platform
             that scores your investing judgment, trains it, and builds a skill set that
             transfers to every high-stakes call you make.
           </p>
 
-          {/* Actions */}
-          <div className="slide-in-4 flex items-center gap-5 mt-9">
+          {/* CTAs */}
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: '20px',
+            opacity: 0, animation: 'slideIn 0.6s ease forwards 0.9s',
+          }}>
             <a
               href="https://www.lcsengine.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-[14px] font-medium px-7 py-3 rounded-full transition-transform hover:scale-[1.03]"
-              style={{ background: 'var(--ink)', color: 'var(--paper)' }}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '8px',
+                fontSize: '14px', fontWeight: 500,
+                padding: '13px 28px',
+                background: '#1a1917', color: '#f7f4ef',
+                borderRadius: '100px', textDecoration: 'none',
+                transition: 'opacity 0.15s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.opacity = '0.82')}
+              onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
             >
-              Open LCS Engine <span className="transition-transform group-hover:translate-x-1">→</span>
+              Open LCS Engine →
             </a>
-            <button
-              onClick={() => scrollTo('story')}
-              className="text-[13px] font-normal transition-colors hover:opacity-100"
-              style={{ color: 'var(--soft)', background: 'none', border: 'none', cursor: 'pointer' }}
+            <a
+              href="#story"
+              style={{
+                fontSize: '13px', color: 'rgba(26,25,23,0.45)',
+                textDecoration: 'none', transition: 'color 0.15s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = '#1a1917')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'rgba(26,25,23,0.45)')}
             >
               Who I am ↓
-            </button>
+            </a>
           </div>
 
-          {/* Proof stats */}
-          <div
-            className="flex gap-0 mt-12 pt-10 border-t"
-            style={{ borderColor: 'var(--faint)', opacity: 0, animation: 'slideIn 0.6s ease forwards 1.1s' }}
-          >
+          {/* Stats */}
+          <div style={{
+            display: 'flex',
+            marginTop: '48px',
+            paddingTop: '40px',
+            borderTop: '1px solid rgba(26,25,23,0.18)',
+            opacity: 0, animation: 'slideIn 0.6s ease forwards 1.1s',
+          }}>
             {[
-              { num: '83%', desc: 'onboarding completion' },
+              { num: '83%',  desc: 'onboarding completion' },
               { num: '102+', desc: 'validated respondents' },
-              { num: '69%', desc: 'rated "very valuable"' },
+              { num: '69%',  desc: 'rated "very valuable"' },
             ].map(({ num, desc }, i) => (
-              <div
-                key={num}
-                className="flex-1"
-                style={{
-                  paddingRight: i < 2 ? '32px' : 0,
-                  borderRight: i < 2 ? `1px solid var(--faint)` : 'none',
-                  marginRight: i < 2 ? '32px' : 0,
-                }}
-              >
-                <div
-                  className="font-display text-[28px] font-normal"
-                  style={{ color: 'var(--ink)' }}
-                >
+              <div key={num} style={{
+                flex: 1,
+                paddingRight: i < 2 ? '32px' : 0,
+                borderRight: i < 2 ? '1px solid rgba(26,25,23,0.18)' : 'none',
+                marginRight: i < 2 ? '32px' : 0,
+              }}>
+                <div style={{ fontFamily: '"DM Serif Display", Georgia, serif', fontSize: '28px', fontWeight: 400, color: '#1a1917' }}>
                   {num}
                 </div>
-                <div className="text-[12px] mt-1" style={{ color: 'var(--soft)' }}>
+                <div style={{ fontSize: '12px', marginTop: '4px', color: 'rgba(26,25,23,0.45)' }}>
                   {desc}
                 </div>
               </div>
             ))}
           </div>
+
         </div>
       </div>
     </section>
